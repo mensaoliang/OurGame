@@ -12,8 +12,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Vector3 startPosition;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Vector3 tem = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-        //Vector3 tem = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 tem = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         startPosition = new Vector3(tem.x, tem.y, 0f);
         if (gameObject.CompareTag("jumpCloudButton"))       //generate a jump cloud
             itemBeingDragged = Instantiate(jumpCloud, startPosition,
@@ -29,8 +28,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        Vector3 tem = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-        //Vector3 tem = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 tem = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemBeingDragged.transform.position = new Vector3(tem.x, tem.y, 0f);
     }
 
