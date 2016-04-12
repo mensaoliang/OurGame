@@ -33,29 +33,6 @@ public class GameControl : MonoBehaviour {
             SceneManager.LoadScene(0);
             Time.timeScale = 1;
         }
-        if (Input.touchCount > 0)
-        {
-            foreach (Touch touch in Input.touches)
-                if (touch.tapCount > 0 &&
-                    touch.position.x <= Screen.width / 2)//left hand
-                {
-                    if (paused)             //make all tool buttons invisible
-                    {
-                        Time.timeScale = 1;
-                        paused = false;
-                        jumpCloudBtn.gameObject.SetActive(false);
-                        binaryStarBtn.gameObject.SetActive(false);
-                    }
-                    else                    //show all tool buttons here
-                    {
-                        Time.timeScale = 0;
-                        paused = true;
-                        jumpCloudBtn.gameObject.SetActive(true);
-                        binaryStarBtn.gameObject.SetActive(true);
-                    }
-                }
-        }
-        /*
 	    if (Input.GetKeyDown(KeyCode.Space))//press space to pause or not pause
         {
             if (paused)             //make all tool buttons invisible
@@ -73,7 +50,6 @@ public class GameControl : MonoBehaviour {
                 binaryStarBtn.gameObject.SetActive(true);
             }
         }
-        */
     }
     public void Died()
     {

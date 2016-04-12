@@ -98,5 +98,20 @@ public class ScrollSceneScript : MonoBehaviour {
 	void Update () {
         if (CurrentRoads.Count > 0 && scrollerTrans.position.x > CurrentRoads.First.Value.transform.position.x)
             CreateNewRoad();
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            //int count = 0;
+            for (LinkedListNode<GameObject> it = CurrentCoins.First; it != null;)
+            {
+                if (it.Value.tag == "bomb")
+                {
+                    DestroyImmediate(it.Value);
+                    LinkedListNode<GameObject> itnext = it.Next;
+                    CurrentCoins.Remove(it);
+                    it = itnext;
+                }
+                else it = it.Next;
+            }
+        }
 	}
 }

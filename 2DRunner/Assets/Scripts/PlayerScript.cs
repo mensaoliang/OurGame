@@ -35,23 +35,12 @@ public class PlayerScript : MonoBehaviour {
         if (isDead)
             return;
         //look for input to trigger a "jump"
-        if (Input.touchCount > 0)
-        {
-            foreach (Touch touch in Input.touches)
-                if (touch.tapCount > 0 && 
-                    touch.position.x > Screen.width / 2)//right hande
-                {
-                    jump = true;
-                    run = false;
-                }
-        }
-        /* on Computer Vision
-        if (Input.GetKeyDown(KeyCode.UpArrow) && canJump)
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canJump && Time.timeScale > 0.1)
         {
             jump = true;
             run = false;
         }
-        */
 	}
     void FixedUpdate()
     {
