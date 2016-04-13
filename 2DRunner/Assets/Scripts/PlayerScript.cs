@@ -125,7 +125,7 @@ public class PlayerScript : MonoBehaviour {
             other.transform.parent.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
             rbody.velocity = new Vector2(forwardSpeed, 0);
         }
-        else if (other.tag == "bomb")
+        else if (other.tag == "bomb" || other.tag == "Vine")
         {
             isDead = true;
             GameControl.current.Died();

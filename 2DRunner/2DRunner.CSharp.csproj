@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\GameControl.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
     <Compile Include="Assets\Scripts\ScrollSceneScript.cs" />
+    <Compile Include="Assets\Scripts\VineScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\_ReadMe.txt" />

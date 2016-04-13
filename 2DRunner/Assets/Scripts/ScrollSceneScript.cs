@@ -63,7 +63,7 @@ public class ScrollSceneScript : MonoBehaviour {
         float baseY = 100f;//the correct lowest y value of coins on this road
         if (roadName.StartsWith("PlainG"))//plainGround
             baseY = -3.25f;
-        else if (roadName.StartsWith("PlainH"))//plainHighGround
+        else if (roadName.StartsWith("PlainH") || roadName.StartsWith("VineGround"))//plainHighGround or VineGround
             baseY = -1.25f;
         for (int st = centerX - 10; st < centerX + 12; st++)
         {

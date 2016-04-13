@@ -16,6 +16,7 @@ TagManager:
   - starCom
   - Scenery
   - dead
+  - Vine
   layers:
   - Default
   - TransparentFX
