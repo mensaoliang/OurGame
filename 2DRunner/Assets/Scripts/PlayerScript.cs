@@ -7,12 +7,14 @@ public class PlayerScript : MonoBehaviour {
     public float upForce;       //upward force of the "jump"
     public float forwardSpeed;  //forward movement speed
     public bool isDead = false; //has the player collided with a obstacle?
+	public Text diamondCount;
     public Text scoreText;
     public float teleSpeed;     //moving speed of using binary star
 
     private float counter, dist;    //counter and dist are used for binary star
     private Rigidbody2D rbody;
     private int score = 0;
+	private int diamond = 0;
     private bool tele = false;      //is the player using binary star? 
     private Animator anim;              //reference to the animator component
     private bool jump = false;          //has the player triggered a "jump"?
@@ -20,6 +22,16 @@ public class PlayerScript : MonoBehaviour {
     private bool run = false;           //is the player running?
     private Vector3 startPos, endPos;   //the start and end position of tele
     // Use this for initialization
+	public static int IntParseFast(string value)
+	{
+		int result = 0;
+		for (int i = 0; i < value.Length; i++)
+		{
+			char letter = value[i];
+			result = 10 * result + (letter - 48);
+		}
+		return result;
+	}
 	void Start () {
         //get reference to the animator component
         anim = GetComponent<Animator>();
@@ -27,6 +39,7 @@ public class PlayerScript : MonoBehaviour {
         rbody = GetComponent<Rigidbody2D>();
         rbody.velocity = new Vector2(forwardSpeed, 0);
         scoreText.text = "Score: " + score.ToString();
+		diamondCount.text = diamondCount.text = diamond.ToString ();
     }
 	
 	// Update is called once per frame
@@ -87,12 +100,19 @@ public class PlayerScript : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "coin" || other.tag == "power")
-        {
-            other.gameObject.SetActive(false);
-            score++;
-            scoreText.text = "Score: " + score.ToString();
-        }
+		if (other.tag == "coin") 
+		{
+			other.gameObject.SetActive (false);
+			score++;
+			scoreText.text = "Score: " + score.ToString ();
+		} 
+		else if (other.tag == "power") 
+		{
+			other.gameObject.SetActive (false);
+			diamond = IntParseFast (diamondCount.text);
+			diamond++;
+			diamondCount.text = diamond.ToString ();
+		}
         else if (other.tag == "jumpCloud")
         {
             //can't do another jump while using jump cloud

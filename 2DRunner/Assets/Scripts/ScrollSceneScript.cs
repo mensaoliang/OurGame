@@ -1,18 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class ScrollSceneScript : MonoBehaviour {
     public GameObject environment;  //collection of all kinds of ground
     public GameObject coin;
     public GameObject power;
     public GameObject bomb;
+	public Text diamondCount;
     private Transform trans;
+	private int diamond; 
     private Transform scrollerTrans;
     private GameObject[] grounds;
     private LinkedList<GameObject> CurrentRoads = new LinkedList<GameObject>();
     private LinkedList<GameObject> CurrentCoins = new LinkedList<GameObject>();
 	// Use this for initialization
+	int IntParseFast(string value)
+	{
+		int result = 0;
+		for (int i = 0; i < value.Length; i++)
+		{
+			char letter = value[i];
+			result = 10 * result + (letter - 48);
+		}
+		return result;
+	}
 	void Start () {
         scrollerTrans = GetComponent<Transform>();
         //initialize the grounds collection
@@ -100,18 +113,24 @@ public class ScrollSceneScript : MonoBehaviour {
             CreateNewRoad();
         if (Input.GetKeyDown(KeyCode.B))
         {
+			diamond = IntParseFast (diamondCount.text);
+			if (diamond >= 1) 
+			{
+				for (LinkedListNode<GameObject> it = CurrentCoins.First; it != null;)
+				{
+					if (it.Value.tag == "bomb")
+					{
+						DestroyImmediate(it.Value);
+						LinkedListNode<GameObject> itnext = it.Next;
+						CurrentCoins.Remove(it);
+						it = itnext;
+					}
+					else it = it.Next;
+				}
+				diamond = diamond - 1;
+				diamondCount.text = diamond.ToString ();
+			}
             //int count = 0;
-            for (LinkedListNode<GameObject> it = CurrentCoins.First; it != null;)
-            {
-                if (it.Value.tag == "bomb")
-                {
-                    DestroyImmediate(it.Value);
-                    LinkedListNode<GameObject> itnext = it.Next;
-                    CurrentCoins.Remove(it);
-                    it = itnext;
-                }
-                else it = it.Next;
-            }
         }
 	}
 }
