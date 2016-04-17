@@ -45,14 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\BirdScript.cs" />
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\CameraFollow.cs" />
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\ColumnScript.cs" />
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\ColumnSpawnScript.cs" />
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\GameControlScript.cs" />
-     <Compile Include="Assets\Example Games\Flappy Bird Style\Scripts\ScrollScript.cs" />
      <Compile Include="Assets\Scripts\BeginnerGuide.cs" />
      <Compile Include="Assets\Scripts\BeginnerGuideforCloud.cs" />
+     <Compile Include="Assets\Scripts\BeginnerGuideforDiamonds.cs" />
      <Compile Include="Assets\Scripts\BeginnerGuideforStars.cs" />
      <Compile Include="Assets\Scripts\BinaryStar.cs" />
      <Compile Include="Assets\Scripts\CameraFollowScript.cs" />
@@ -61,8 +56,12 @@
      <Compile Include="Assets\Scripts\GameControl.cs" />
      <Compile Include="Assets\Scripts\LoadBeginnerScene.cs" />
      <Compile Include="Assets\Scripts\LoadNormalScene.cs" />
+     <Compile Include="Assets\Scripts\LoadOptionScene.cs" />
+     <Compile Include="Assets\Scripts\MusicBackSwitch.cs" />
+     <Compile Include="Assets\Scripts\MusicEffectSwitch.cs" />
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\ScrollSceneScript.cs" />
+     <Compile Include="Assets\Scripts\SoundDuringGame.cs" />
      <Compile Include="Assets\Scripts\VineScript.cs" />
      <None Include="Assets\Scripts\_ReadMe.txt" />
  <Reference Include="UnityEngine.UI">

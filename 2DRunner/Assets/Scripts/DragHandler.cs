@@ -18,8 +18,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         startPosition = new Vector3(tem.x, tem.y, 0f);
         if (gameObject.CompareTag("jumpCloudButton"))    //generate a jump cloud
         {   
-            itemBeingDragged = Instantiate(jumpCloud, startPosition,
-                                        Quaternion.identity) as GameObject;
             ////////////////////new added codes by Zheng////////////////////
             if (PlayerPrefs.GetInt("FirstUseCloud") == 1)
             {
@@ -29,15 +27,13 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             else
             {
                 JumplingCloudBeginnerGuidePanel.SetActive(false);
+                itemBeingDragged = Instantiate(jumpCloud, startPosition,
+                                        Quaternion.identity) as GameObject;
             }
             ////////////////////////////////////////////////////////////////
         }
         else if (gameObject.CompareTag("binaryStarButton")) //generate a binary star
         {
-            itemBeingDragged = Instantiate(binaryStar, startPosition,
-                                        Quaternion.identity) as GameObject;
-            itemBeingDragged.GetComponent<LineRenderer>().SetWidth(0f, 0f);
-            itemBeingDragged.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
             ////////////////////new added codes by Zheng////////////////////
             if (PlayerPrefs.GetInt("FirstUseStars") == 1)
             {
@@ -47,6 +43,10 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             else
             {
                 StarsBeginnerGuidePanel.SetActive(false);
+                itemBeingDragged = Instantiate(binaryStar, startPosition,
+                                        Quaternion.identity) as GameObject;
+                itemBeingDragged.GetComponent<LineRenderer>().SetWidth(0f, 0f);
+                itemBeingDragged.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
             }
             ////////////////////////////////////////////////////////////////
         }
@@ -54,12 +54,14 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (itemBeingDragged == null) return;   //if this is the first time to use an item, then we dont drag this item
         Vector3 tem = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemBeingDragged.transform.position = new Vector3(tem.x, tem.y, 0f);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (itemBeingDragged == null) return;   //if this is the first time to use an item, then we dont drag this item
         if (Vector3.Distance(itemBeingDragged.transform.position,
                     startPosition) < 1)//too near
         {

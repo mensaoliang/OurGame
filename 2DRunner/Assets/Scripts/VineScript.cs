@@ -17,8 +17,8 @@ public class VineScript : MonoBehaviour {
 	void Start () {
         trans = GetComponent<Transform>();
         parentTrans = trans.parent.gameObject.transform;
-        upperBound = parentTrans.position.y + 8f;
-        botBound = parentTrans.position.y + 4f;
+        upperBound = parentTrans.position.y + 8.5f;
+        botBound = parentTrans.position.y + 3.5f;
         leftBound = parentTrans.position.x - 0.5f;
         rightBound = parentTrans.position.x + 6f;
 	}

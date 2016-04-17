@@ -12,7 +12,6 @@ public class GameControl : MonoBehaviour {
 	public AudioMixerSnapshot audio_pause;
 	public AudioMixerSnapshot audio_running;
 	public AudioMixerSnapshot audio_died;
-	public AudioClip[] stings;
 	public float bpm = 128;
 
     private bool isGameOver = false;    //is the game over?

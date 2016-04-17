@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/_Scene/StartUI.unity
   - enabled: 1
     path: Assets/_Scene/2D Runner.unity
+  - enabled: 1
+    path: Assets/_Scene/StartOption.unity

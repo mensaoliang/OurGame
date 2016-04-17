@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LoadNormalScene : MonoBehaviour {
     public void LoadNewScene(int sceneNum)
@@ -25,7 +26,22 @@ public class LoadNormalScene : MonoBehaviour {
             PlayerPrefs.SetInt("FirstUseStars", 1);
         }
 
+        if (!PlayerPrefs.HasKey("FirstCollectDiamond"))
+        {
+            PlayerPrefs.SetInt("FirstCollectDiamond", 1);
+        }
+
+        if (!PlayerPrefs.HasKey("MusicOn"))
+        {
+            PlayerPrefs.SetInt("MusicOn", 1);
+        }
+
+        if (!PlayerPrefs.HasKey("EffectOn"))
+        {
+            PlayerPrefs.SetInt("EffectOn", 1);
+        }
+
         PlayerPrefs.Save();
-        Application.LoadLevel(sceneNum);
+        SceneManager.LoadScene(sceneNum);
     }
 }

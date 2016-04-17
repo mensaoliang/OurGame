@@ -6,6 +6,7 @@ public class BeginnerGuide : MonoBehaviour
     public GameObject panel; // Assign in inspector
     public GameObject panel1; // Assign in inspector
     public GameObject panel2; // Assign in inspector
+    public GameObject panel3; // Assign in inspector
     public GameObject button; // Assign in inspector
     //private bool isShowing;
     //private float currentTime = 0.0f, startTime = 0.0f, timeToWait = 2.0f;
@@ -15,6 +16,7 @@ public class BeginnerGuide : MonoBehaviour
     {
         panel1.SetActive(false);
         panel2.SetActive(false);
+        panel3.SetActive(false);
         if (PlayerPrefs.GetInt("FirstTimePlay") == 1)
         {
             panel.SetActive(true);
