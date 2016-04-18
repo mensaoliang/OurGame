@@ -18,10 +18,8 @@ public class PlayerScript : MonoBehaviour {
     public GameObject explosion;    //when player touches bomb, the bomb will explode
 	public AudioClip[] stings;
 
-    private float counter, dist;    //counter and dist are used for binary star
     private Rigidbody2D rbody;
     private int score = 0;
-	private int diamond = 0;
     private bool tele = false;      //is the player using binary star? 
     private Animator anim;              //reference to the animator component
     private bool jump = false;          //has the player triggered a "jump"?
@@ -31,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
     private Transform trans;
     private float gravScale; //the default gravScale of the player rigidbody
     private Vector3 decScale = new Vector3(0.3f, 0.3f, 0f); //by which player scale will get smaller while using star
-	private AudioSource audio {get {return GetComponent<AudioSource>();}}
+    private AudioSource source;
 
 
     // Use this for initialization
@@ -49,7 +47,8 @@ public class PlayerScript : MonoBehaviour {
         //get reference to the animator component
         anim = GetComponent<Animator>();
         trans = GetComponent<Transform>();  //get the transform of player, this variable is mainly used for changing the scale of player
-        //set the character moving forward
+                                            //set the character moving forward 
+        source = GetComponent<AudioSource>();
         rbody = GetComponent<Rigidbody2D>();
         rbody.velocity = new Vector2(forwardSpeed, 0);
         scoreText.text = "Score: " + score.ToString();
@@ -124,10 +123,12 @@ public class PlayerScript : MonoBehaviour {
         }
        //else run = false;
     }
-	void PlaySound(int clip)
+	public void PlaySound(int clip)
 	{
-		audio.clip = stings [clip];
-		audio.Play ();
+        if (PlayerPrefs.GetInt("EffectOn") == 0)    //if effect sound is muted, then don't play sound
+            return;
+        source.clip = stings [clip];
+		source.Play ();
 	}
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -136,6 +137,8 @@ public class PlayerScript : MonoBehaviour {
 			other.gameObject.SetActive (false);
 			score++;
 			scoreText.text = "Score: " + score.ToString ();
+            if (source.isPlaying == false)  //don't play duplicate coin sound
+                PlaySound(4);
 		} 
 		else if (other.tag == "power") 
 		{
@@ -180,41 +183,38 @@ public class PlayerScript : MonoBehaviour {
         {
             if (!tele)  //if player is not using star before
                 trans.localScale -= decScale;    //the player scale becomes smaller
+            startPos = other.transform.position;
+            trans.position = startPos;
+            other.gameObject.SetActive(false);
+            endPos = other.transform.parent.GetComponent<Transform>().GetChild(1).transform.position;
             rbody.gravityScale = 0.0f;  //while using star, player will not be affected by gravity
             rbody.velocity = new Vector2(0f, 0f);
             canJump = false;
             tele = true;
             run = false;
-            anim.SetBool("idle", true);
-            startPos = other.transform.position;
-            other.gameObject.SetActive(false);
-            endPos = other.transform.parent.GetComponent<Transform>().GetChild(1).transform.position;
-            dist = Vector3.Distance(startPos, endPos);
-            counter = 0;
-            rbody.position = startPos;
+            anim.SetBool("idle", true);     
         }
-        else if (other.tag == "starCom" && tele)    //reaches the star com while teling
+        else if (other.tag == "starCom" && tele && Vector2.Distance(endPos, other.transform.position) < 0.1f)    //reaches the destination star com while teling
         {
-            if (tele)   //if player is using star now, then when finished, its scale becomes normal as before
-            {
-                tele = false;
-                trans.localScale += decScale;
-                rbody.gravityScale = gravScale;
-            }
+            tele = false;
+            trans.localScale += decScale;
+            rbody.gravityScale = gravScale;
 			PlaySound (3);
             other.transform.parent.GetComponent<LineRenderer>().SetWidth(0f, 0f);
             other.transform.parent.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
             rbody.velocity = new Vector2(forwardSpeed, 0);
         }
-        else if (other.tag == "bomb" || other.tag == "Vine")
+        else if (other.tag == "bomb" || other.tag == "Vine" || other.tag == "rock")
         {
             if (other.tag == "bomb")    //bomb explode
             {
                 Destroy(other.gameObject);
                 GameObject expEffect = Instantiate(explosion, other.transform.position, Quaternion.identity) as GameObject;
                 Destroy(expEffect, 1);  //display the explosion effect at the same positon for 1s
-				PlaySound (0);
+                PlaySound(0);
             }
+            else if (other.tag == "rock")   //play effect sound
+                PlaySound(0);
             isDead = true;
             GameControl.current.Died();
         }

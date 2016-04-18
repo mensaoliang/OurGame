@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class ScrollSceneScript : MonoBehaviour {
     public GameObject environment;  //collection of all kinds of ground
@@ -87,7 +88,7 @@ public class ScrollSceneScript : MonoBehaviour {
             baseY = -3.25f;
         else if (roadName.StartsWith("PlainH") || roadName.StartsWith("VineGround") || roadName.StartsWith("PlainS"))//plainHighGround or VineGround or PlainStep
             baseY = -1.25f;
-        for (int st = centerX - 10; st < centerX + 12; st++)
+        for (int st = centerX - 8; st < centerX + 12; st++)
         {
             if (roadName.StartsWith("PlainSt"))//the following two scenes have different height grounds
             {
@@ -104,7 +105,7 @@ public class ScrollSceneScript : MonoBehaviour {
             int genNum = Random.Range(0, 3);//how many coins will generated here, 3 at most, 1 at least
             for (float i = baseY; i < baseY + genNum + 0.1 && i < 3f; i += 1)
             {
-                int kind = Random.Range(0, 101); // 4% bombs, 3% powers, 93% coins
+                int kind = Random.Range(0, 100); // 4% bombs, 3% powers, 93% coins
                 if (kind < 4)//bombs
                     CurrentCoins.AddLast(Instantiate(bomb, new Vector3((float)st, i, 0),
                                             Quaternion.identity) as GameObject);
@@ -147,6 +148,8 @@ public class ScrollSceneScript : MonoBehaviour {
 						LinkedListNode<GameObject> itnext = it.Next;
 						CurrentCoins.Remove(it);
 						it = itnext;
+                        if (!suc)   //if this is the first bomb exploded, then play sound
+                            player.GetComponent<PlayerScript>().PlaySound(0);
                         suc = true; //successfully used the ability
 					}
 					else it = it.Next;

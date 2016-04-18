@@ -19,7 +19,7 @@ public class LoadBeginnerScene : MonoBehaviour {
         {
             PlayerPrefs.SetInt("MusicOn", 1);
         }
-        if (!PlayerPrefs.HasKey("EffetOn"))
+        if (!PlayerPrefs.HasKey("EffectOn"))
         {
             PlayerPrefs.SetInt("EffectOn", 1);
         }

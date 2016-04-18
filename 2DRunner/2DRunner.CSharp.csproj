@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\CameraFollowScript.cs" />
     <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\DragStarCom.cs" />
+    <Compile Include="Assets\Scripts\FallingStonesScript.cs" />
     <Compile Include="Assets\Scripts\GameControl.cs" />
     <Compile Include="Assets\Scripts\LoadBeginnerScene.cs" />
     <Compile Include="Assets\Scripts\LoadNormalScene.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\MusicBackSwitch.cs" />
     <Compile Include="Assets\Scripts\MusicEffectSwitch.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
+    <Compile Include="Assets\Scripts\RockScript.cs" />
     <Compile Include="Assets\Scripts\ScrollSceneScript.cs" />
     <Compile Include="Assets\Scripts\SoundDuringGame.cs" />
     <Compile Include="Assets\Scripts\VineScript.cs" />
